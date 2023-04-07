@@ -1,11 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 
-const Card = ({ type, increment }) => {
+const Card = ({ type, increment, reset }) => {
+  const [isClicked, setIsClicked] = useState(false);
   return (
     <div>
       <button
         onClick={() => {
-          increment();
+          if (isClicked) {
+            reset();
+          } else {
+            increment();
+            setIsClicked(true);
+          }
         }}
       >
         {type}

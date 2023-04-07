@@ -2,16 +2,12 @@ import React, { useState } from "react";
 import Card from "./Card";
 import { cardData } from "./data";
 
-const Deck = () => {
+const Deck = ({ reset }) => {
   const [currentScore, setCurrentScore] = useState(0);
   // Use functional update form to increment based on previous score
   const incrementScore = () => {
     setCurrentScore((currentScore) => currentScore + 1);
   };
-  // Collection of card components built from cardData
-  let cardItems = cardData.map((item) => (
-    <Card type={item.type} key={item.id} increment={incrementScore} />
-  ));
   // This method takes an array and returns a randomized version of it
   const shuffle = (array) => {
     for (let i = array.length - 1; i > 0; i--) {
@@ -23,6 +19,16 @@ const Deck = () => {
     }
     return array;
   };
+  // Collection of card components built from cardData
+  let cardItems = cardData.map((item) => (
+    <Card
+      type={item.type}
+      key={item.id}
+      increment={incrementScore}
+      reset={reset}
+    />
+  ));
+
   return (
     <div>
       <p>{currentScore}</p>
