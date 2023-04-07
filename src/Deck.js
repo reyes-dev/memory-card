@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Card from "./Card";
 import { cardData } from "./data";
 
-const Deck = ({ reset, highScore, updateHighScore }) => {
+const Deck = ({ reset, highScore, updateHighScore, updateGameOver }) => {
   const [currentScore, setCurrentScore] = useState(0);
   // Use functional update form to increment based on previous score
   const incrementScore = () => {
@@ -31,6 +31,12 @@ const Deck = ({ reset, highScore, updateHighScore }) => {
       updateHighScore={updateHighScore}
     />
   ));
+
+  useEffect(() => {
+    if (currentScore === 4) {
+      updateGameOver();
+    }
+  }, [currentScore]);
 
   return (
     <div>

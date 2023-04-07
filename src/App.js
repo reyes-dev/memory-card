@@ -1,37 +1,31 @@
-import React, { useState } from "react";
-import Deck from "./Deck";
+import React, { useState, useEffect } from "react";
+import Game from "./Game";
+import Winner from "./Winner";
 // This is the main component where the game takes place
 const App = () => {
-  const [isGameA, setIsGameA] = useState(true);
   const [highScore, setHighScore] = useState(0);
-
-  const resetGame = () => {
-    if (isGameA) {
-      setIsGameA(false);
-    } else {
-      setIsGameA(true);
-    }
-  };
+  const [gameOver, setGameOver] = useState(false);
   const updateHighScore = (value) => {
     setHighScore(value);
   };
+  const updateGameOver = () => {
+    setGameOver(true);
+  };
   return (
     <div>
-      <p>{highScore}</p>
-      {isGameA ? (
-        <Deck
-          key="A"
-          reset={resetGame}
-          highScore={highScore}
-          updateHighScore={updateHighScore}
-        />
+      {gameOver ? (
+        <div>
+          <Winner />
+        </div>
       ) : (
-        <Deck
-          key="B"
-          reset={resetGame}
-          highScore={highScore}
-          updateHighScore={updateHighScore}
-        />
+        <div>
+          <p>{highScore}</p>
+          <Game
+            highScore={highScore}
+            updateHighScore={updateHighScore}
+            updateGameOver={updateGameOver}
+          />
+        </div>
       )}
     </div>
   );
