@@ -4,6 +4,12 @@ const App = () => {
   // Here, I am declaring a state and a function to alter that state
   // The array represents the cards of the deck numerically
   const [cards, setCards] = useState([1, 2, 3, 4]);
+  const [clickedCards, setClickedCards] = useState({
+    1: false,
+    2: false,
+    3: false,
+    4: false,
+  });
   // This method takes an array and returns a randomized version of it
   const shuffle = (array) => {
     for (let i = array.length - 1; i > 0; i--) {
@@ -21,11 +27,23 @@ const App = () => {
     const shuffledCards = shuffle(cards);
     setCards(listCards(shuffledCards));
   };
+  // Method alters whether the button was clicked in state
+  const clickCard = (index) => {
+    // I used the functional update form of setClickedCards in order to
+    // update the value of a key and preserve the existing values
+    setClickedCards((clickedCards) => ({ ...clickedCards, [index]: true }));
+  };
   /* A variable for storing the result of mapping the state of cards
    so that it is an array of (JSX objects) */
   const listCards = (cards) => {
     return cards.map((card) => (
-      <button key={card.toString()} onClick={shuffleCards}>
+      <button
+        key={card.toString()}
+        onClick={() => {
+          clickCard(card);
+          shuffleCards();
+        }}
+      >
         {card}
       </button>
     ));
