@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Card from "./Card";
 import { cardData } from "./data";
 
-const Deck = ({ reset }) => {
+const Deck = ({ reset, highScore, updateHighScore }) => {
   const [currentScore, setCurrentScore] = useState(0);
   // Use functional update form to increment based on previous score
   const incrementScore = () => {
@@ -26,6 +26,9 @@ const Deck = ({ reset }) => {
       key={item.id}
       increment={incrementScore}
       reset={reset}
+      score={currentScore}
+      highScore={highScore}
+      updateHighScore={updateHighScore}
     />
   ));
 
