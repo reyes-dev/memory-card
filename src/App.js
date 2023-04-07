@@ -1,15 +1,39 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import Card from "./Card";
 // This is the main component where the game takes place
 const App = () => {
-  // Here, I am declaring a state and a function to alter that state
-  // The array represents the cards of the deck numerically
-  const [cards, setCards] = useState([1, 2, 3, 4]);
-  const [clickedCards, setClickedCards] = useState({
-    1: false,
-    2: false,
-    3: false,
-    4: false,
-  });
+  const [currentScore, setCurrentScore] = useState(0);
+  // Card Data
+  const cardData = [
+    {
+      id: 0,
+      type: "mushroom",
+      clicked: false,
+    },
+    {
+      id: 1,
+      type: "slime",
+      clicked: false,
+    },
+    {
+      id: 2,
+      type: "pig",
+      clicked: false,
+    },
+    {
+      id: 3,
+      type: "stump",
+      clicked: false,
+    },
+  ];
+  // Use functional update form to increment based on previous score
+  const incrementScore = () => {
+    setCurrentScore((currentScore) => currentScore + 1);
+  };
+  // Collection of card components built from cardData
+  let cardItems = cardData.map((item) => (
+    <Card type={item.type} key={item.id} increment={incrementScore} />
+  ));
   // This method takes an array and returns a randomized version of it
   const shuffle = (array) => {
     for (let i = array.length - 1; i > 0; i--) {
@@ -21,39 +45,13 @@ const App = () => {
     }
     return array;
   };
-  // Method that sets the state of cards to the result of shuffling
-  // the current state of currents
-  const shuffleCards = () => {
-    const shuffledCards = shuffle(cards);
-    setCards(listCards(shuffledCards));
-  };
-  // Method alters whether the button was clicked in state
-  const clickCard = (index) => {
-    // I used the functional update form of setClickedCards in order to
-    // update the value of a key and preserve the existing values
-    setClickedCards((clickedCards) => ({ ...clickedCards, [index]: true }));
-  };
-  /* A variable for storing the result of mapping the state of cards
-   so that it is an array of (JSX objects) */
-  const listCards = (cards) => {
-    return cards.map((card) => (
-      <button
-        key={card.toString()}
-        onClick={() => {
-          clickCard(card);
-          shuffleCards();
-        }}
-      >
-        {card}
-      </button>
-    ));
-  };
-  /* This hook sets the cards, upon mounting, to the listCards variable */
-  useEffect(() => {
-    setCards(listCards(cards));
-  }, []);
 
-  return <div>{cards}</div>;
+  return (
+    <div>
+      <p>{currentScore}</p>
+      {shuffle(cardItems)}
+    </div>
+  );
 };
 
 export default App;
