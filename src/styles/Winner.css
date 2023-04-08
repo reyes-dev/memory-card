@@ -1,0 +1,12 @@
+.winner {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.winner > h1 {
+  font-size: 8rem;
+  color: white;
+}
+.winner > img {
+  height: 200px;
+}

@@ -1,7 +1,9 @@
 import React, { useState } from "react";
+import "../styles/Card.css";
 
 const Card = ({
   type,
+  filePath,
   increment,
   reset,
   score,
@@ -13,6 +15,7 @@ const Card = ({
   return (
     <div>
       <button
+        className="card"
         onClick={() => {
           if (isClicked) {
             if (score > highScore) {
@@ -25,6 +28,7 @@ const Card = ({
           }
         }}
       >
+        <img src={filePath} alt="maplestory-monster"></img>
         {type}
       </button>
     </div>

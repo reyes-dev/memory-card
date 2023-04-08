@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Card from "./Card";
-import { cardData } from "./data";
+import { cardData } from "../data";
+import "../styles/Board.css";
 
 const Deck = ({ reset, highScore, updateHighScore, updateGameOver }) => {
   const [currentScore, setCurrentScore] = useState(0);
@@ -23,6 +24,7 @@ const Deck = ({ reset, highScore, updateHighScore, updateGameOver }) => {
   let cardItems = cardData.map((item) => (
     <Card
       type={item.type}
+      filePath={item.filePath}
       key={item.id}
       increment={incrementScore}
       reset={reset}
@@ -33,14 +35,17 @@ const Deck = ({ reset, highScore, updateHighScore, updateGameOver }) => {
   ));
 
   useEffect(() => {
-    if (currentScore === 4) {
+    if (currentScore === 12) {
       updateGameOver();
     }
   }, [currentScore]);
 
   return (
-    <div>
-      <p>{currentScore}</p>
+    <div className="board">
+      <div className="score">
+        <p>Current Score: {currentScore}</p>
+        <p>High Score: {highScore}</p>
+      </div>
       {shuffle(cardItems)}
     </div>
   );

@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
-import Game from "./Game";
-import Winner from "./Winner";
+import React, { useState } from "react";
+import Game from "./components/Game";
+import Winner from "./components/Winner";
+import "./styles/App.css";
 // This is the main component where the game takes place
 const App = () => {
   const [highScore, setHighScore] = useState(0);
@@ -19,7 +20,6 @@ const App = () => {
         </div>
       ) : (
         <div>
-          <p>{highScore}</p>
           <Game
             highScore={highScore}
             updateHighScore={updateHighScore}
